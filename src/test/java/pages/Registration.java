@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -19,13 +20,14 @@ public class Registration extends BasePage{
     @FindBy (id = "Login")
     public WebElement login;
     @Override
+    @Step
     public BasePage isPageOpened() {
         wait.until(ExpectedConditions.urlToBe("https://ewavecommerce8.lightning.force.com/lightning/page/home"));
         return this;
     }
-
+    @Step
     public void openStartPage () { driver.get("https://ewavecommerce8.my.salesforce.com"); }
-
+    @Step
     public NewAccountModal registrationName () {
         userName.sendKeys("denis-shlyakhticev-d710@force.com");
         passWord.sendKeys("SKRIZHALI2001");

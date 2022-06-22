@@ -1,9 +1,11 @@
 package pages;
+import io.qameta.allure.Step;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import wrappers.Input;
 import wrappers.DropDown;
 
@@ -16,7 +18,9 @@ public class NewContactModal extends BasePage{
 
     @Override
     public BasePage isPageOpened() {
-        return null;
+        wait.until(ExpectedConditions.urlToBe("https://ewavecommerce8.lightning.force.com/" +
+                "lightning/o/Contact/list?filterName=Recent"));
+        return this;
     }
 
     @FindBy(xpath = "//span[text() ='Contacts']")
@@ -31,16 +35,19 @@ public class NewContactModal extends BasePage{
     public WebElement buttonSave;
     @FindBy (xpath = "//lightning-formatted-name")
     public WebElement contactName;
-
-    public NewContactModal createContact() {
+    @Step
+    public NewContactModal openNewFieldContact() {
         JavascriptExecutor executor = (JavascriptExecutor)driver;
         executor.executeScript("arguments[0].click();",buttonContacts);
+        isPageOpened();
         buttonNew1.click();
             return this;
     }
 
-    public void createContactPart1(String phone,String mobile,String email, String firstName,String lastname,
-                                   String title, String accountName) {
+    public void createContact(String phone,String mobile,String email, String firstName,String lastname,
+                                   String title, String accountName,String mailingCity,String fax, String otherCity,
+                                   String homePhone, String department, String otherPhone, String birthdate,
+                                   String asst, String assistant) {
         new Input(driver, "Phone").writeContacts(phone);
         new Input(driver, "Mobile").writeContacts(mobile);
         new Input(driver, "Email").writeContacts(email);
@@ -48,6 +55,17 @@ public class NewContactModal extends BasePage{
         new Input(driver, "Last Name").writeContactsForLastName(lastname);
         new Input(driver, "Title").writeContacts(title);
         new DropDown(driver,"Account Name").selectContact(accountName);
+        scrollContact();
+        new Input(driver, "Mailing City").writeContacts(mailingCity);
+        new Input(driver, "Fax").writeContacts(fax);
+        new Input(driver,"Other City").writeContacts(otherCity);
+        new Input(driver,"Home Phone").writeContacts(homePhone);
+        new Input(driver,"Department").writeContacts(department);
+        scrollContact2();
+        new Input(driver, "Other Phone").writeContacts(otherPhone);
+        new Input(driver, "Birthdate").writeContacts(birthdate);
+        new Input(driver, "Asst. Phone").writeContacts(asst);
+        new Input(driver, "Assistant").writeContacts(assistant);
     }
 
     public void scrollContact() {
@@ -55,23 +73,8 @@ public class NewContactModal extends BasePage{
         executor.executeScript("arguments[0].scrollIntoView()",locatorAddress);
     }
 
-    public void createContactPart2(String mailingCity,String fax, String otherCity, String homePhone, String department) {
-        new Input(driver, "Mailing City").writeContacts(mailingCity);
-        new Input(driver, "Fax").writeContacts(fax);
-        new Input(driver,"Other City").writeContacts(otherCity);
-        new Input(driver,"Home Phone").writeContacts(homePhone);
-        new Input(driver,"Department").writeContacts(department);
-    }
-
     public void scrollContact2() {
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         executor.executeScript("arguments[0].scrollIntoView()",locatorDescriptionInformation);
-    }
-
-    public void createContactPart3 (String otherPhone, String birthdate, String asst, String assistant) {
-        new Input(driver, "Other Phone").writeContacts(otherPhone);
-        new Input(driver, "Birthdate").writeContacts(birthdate);
-        new Input(driver, "Asst. Phone").writeContacts(asst);
-        new Input(driver, "Assistant").writeContacts(assistant);
     }
 }
