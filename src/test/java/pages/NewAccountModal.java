@@ -1,5 +1,4 @@
 package pages;
-import lombok.Builder;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,20 +10,7 @@ import wrappers.DropDown;
 import wrappers.Input;
 import wrappers.InputWithSuggestion;
 
-
 public class NewAccountModal extends BasePage{
-
-    public NewAccountModal(WebDriver driver) {
-        super(driver);
-        PageFactory.initElements(driver, this);
-    }
-
-    @Override
-    public BasePage isPageOpened() {
-        wait.until(ExpectedConditions.urlToBe("https://ewavecommerce8.lightning.force.com/" +
-                "lightning/o/Account/list?filterName=Recent"));
-        return this;
-    }
 
     @FindBy (xpath = "//a[@title='Accounts']")
     public WebElement buttonAccounts;
@@ -37,7 +23,10 @@ public class NewAccountModal extends BasePage{
     @FindBy (xpath = "//lightning-formatted-text[text()='Skrizhali_music4']")
     public WebElement checkAccount;
 
-
+    public NewAccountModal(WebDriver driver) {
+        super(driver);
+        PageFactory.initElements(driver, this);
+    }
 
     public NewAccountModal openNewFieldsAccounts() {
         JavascriptExecutor executor = (JavascriptExecutor)driver;
@@ -75,15 +64,6 @@ public class NewAccountModal extends BasePage{
         new Input(driver,"Billing Country").write(bildCout);
     }
 
-    public void scroll () {
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        executor.executeScript("arguments[0].scrollIntoView()", scrollLocator);
-    }
-
-    public void save () {
-        buttonSave.click();
-    }
-
     public void createNewAccount (Account account) {
 
         new Input(driver, "Website").write(account.getWebsite());
@@ -97,5 +77,18 @@ public class NewAccountModal extends BasePage{
         new DropDown(driver,"Industry").select(account.getIndustry());
     }
 
+    public void scroll () {
+        executor.executeScript("arguments[0].scrollIntoView()", scrollLocator);
+    }
 
+    public void save () {
+        buttonSave.click();
+    }
+
+    @Override
+    public BasePage isPageOpened() {
+        wait.until(ExpectedConditions.urlToBe("https://ewavecommerce8.lightning.force.com/" +
+                "lightning/o/Account/list?filterName=Recent"));
+        return this;
+    }
 }

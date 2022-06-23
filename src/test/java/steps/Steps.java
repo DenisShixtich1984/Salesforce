@@ -16,8 +16,7 @@ public class Steps {
         @Step()
         public Steps StartSteps () {
         registration
-                .openStartPage();
-        registration
+                .openStartPage()
                 .registrationName();
         registration
                 .isPageOpened();

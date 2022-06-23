@@ -69,12 +69,10 @@ public class NewContactModal extends BasePage{
     }
 
     public void scrollContact() {
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
         executor.executeScript("arguments[0].scrollIntoView()",locatorAddress);
     }
 
     public void scrollContact2() {
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
         executor.executeScript("arguments[0].scrollIntoView()",locatorDescriptionInformation);
     }
 }

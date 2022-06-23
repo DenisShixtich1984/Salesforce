@@ -26,7 +26,7 @@ public class Registration extends BasePage{
         return this;
     }
     @Step
-    public void openStartPage () { driver.get("https://ewavecommerce8.my.salesforce.com"); }
+    public Registration openStartPage () { driver.get("https://ewavecommerce8.my.salesforce.com"); return this;}
     @Step
     public NewAccountModal registrationName () {
         userName.sendKeys("denis-shlyakhticev-d710@force.com");
