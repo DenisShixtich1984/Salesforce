@@ -4,8 +4,10 @@ import com.github.javafaker.Faker;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import pages.NewAccountModal;
 import pages.NewContactModal;
 import pages.Registration;
@@ -13,6 +15,7 @@ import steps.Steps;
 
 import java.time.Duration;
 
+@Listeners(ListenerTest.class)
 public class BaseTest {
     private WebDriver driver;
     protected NewAccountModal newAccountModal;
@@ -22,7 +25,7 @@ public class BaseTest {
     protected Steps steps;
 
     @BeforeMethod
-    public void setUp() {
+    public void setUp(ITestContext context) {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -33,6 +36,7 @@ public class BaseTest {
         registration = new Registration(driver);
         faker = new Faker();
         steps = new Steps(driver);
+        context.setAttribute("driver", driver);
     }
     @AfterMethod
     public void closeBrowser () {
