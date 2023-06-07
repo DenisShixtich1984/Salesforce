@@ -25,25 +25,25 @@ public class AccountTest extends BaseTest {
 
     }
 // ест с использованием билдераб фэйкера и степа
-//    @Test
-//    public void testCreateAccountWithFaker() {
-//
-//        steps.StartSteps();
-//
-//        newAccountModal.openNewFieldsAccounts();
-//
-//        Account account = Account.builder()
-//                .website(faker.twinPeaks().character())
-//                .fax(faker.phoneNumber().phoneNumber())
-//                .accountName(faker.name().fullName())
-//                .phone(faker.phoneNumber().cellPhone())
-//                .parent("<Skrizhali> IT")
-//                .employees(String.valueOf(faker.number().numberBetween(100, 500)))
-//                .annualrevenue(faker.finance().iban())
-//                .industry("Communications")
-//                .type("Competitor")
-//                .build();
-//        newAccountModal.createNewAccount(account);
-//        newAccountModal.save();
-//    }
+    @Test
+    public void testCreateAccountWithFaker() {
+
+        steps.StartSteps();
+
+        newAccountModal.openNewFieldsAccounts();
+
+        Account account = Account.builder()
+                .website(faker.twinPeaks().character())
+                .fax(faker.phoneNumber().phoneNumber())
+                .accountName(faker.name().fullName())
+                .phone(faker.phoneNumber().cellPhone())
+                .parent("<Skrizhali> IT")
+                .employees(String.valueOf(faker.number().numberBetween(100, 500)))
+                .annualrevenue(faker.finance().iban())
+                .industry("Communications")
+                .type("Competitor")
+                .build();
+        newAccountModal.createNewAccount(account);
+        newAccountModal.save();
+    }
 }
